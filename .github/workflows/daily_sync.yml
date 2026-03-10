@@ -1,0 +1,32 @@
+name: Daily Robux Rate Update
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs at 12:00 AM UTC daily
+  workflow_dispatch: # Allows you to click a button to run it manually
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Dependencies
+        run: pip install requests
+
+      - name: Run Update Script
+        run: python update_rate.py
+
+      - name: Commit and Push
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add rate.json
+          git commit -m "Auto-update rates: $(date +'%Y-%m-%d')" || exit 0
+          git push
