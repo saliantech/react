@@ -7,7 +7,7 @@ def get_roblox_rate():
     # Official DevEx Help Page
     url = "https://en.help.roblox.com/hc/en-us/articles/115005718246"
     # Fallback rate if scraping fails
-    default_rate = 0.0038
+    default_rate = 0.00
     
     try:
         response = requests.get(url, timeout=10)
@@ -23,7 +23,7 @@ def get_roblox_rate():
 # Data structure for your website
 data = {
     "devex": get_roblox_rate(),
-    "retail": 0.0125, 
+    "retail": 0.00, 
     "last_updated": datetime.datetime.now().strftime("%Y-%m-%d")
 }
 
